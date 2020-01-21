@@ -1,0 +1,55 @@
+function testMerge() {
+  var model = {
+    "name" : "John Doe", 
+    "company" : "ACME", 
+    "address" : "1234 Market Street, San Francisco, CA 94103, United States", 
+    "date" : "2019-09-23T18:25:00.000Z",
+    "invoiceNumber" : "INV-12345678",
+    "signer" : "Cora Nilson", 
+    "signature" : "https://www.doxey.io/images/signature.png",
+    "subtotal" : 1301,
+    "vatRate" : 19,
+    "vat" : 247.19,
+    "total" : 1548.19,
+    "items" : [ 
+      {
+        "name" : "Raquel teste", 
+        "description" : "Create github repo, setup timetracker and Slack channels", 
+        "amount" : 90
+      },    
+      {   
+        "name" : "Optimize Photos", 
+        "description" : "Scan, crop and scale images to reduce loading times", 
+        "amount" : 340.50 
+      },
+      {   
+        "name" : "Website structure", 
+        "description" : "Copy blank boostrap template. Setup pages and adjust links", 
+        "amount" : 250.50
+      },
+      {   
+        "name" : "CSS theme", 
+        "description" : "Create CSS styles according to CI", 
+        "amount" : 620 
+      }
+    ] 
+  }
+  
+  var params = {
+    'template': "https://docs.google.com/document/d/1urL-JV2m85jry1_tatbjSFBjUZgGiMmwwNR9X8UTUTg/edit",
+    'model': model,
+    'format': 'pdf',
+  };    
+  
+
+  var options = {
+    'contentType': "application/json",
+    'method' : 'post',
+    'payload' : JSON.stringify(params)
+  };
+  var document = UrlFetchApp.fetch('https://api.doxey.io/merge', options).getBlob();
+
+  document.setName("sample invoice.pdf");
+  DriveApp.getRootFolder().createFile(document)
+}
+

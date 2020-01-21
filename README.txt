@@ -1,0 +1,1 @@
+This is a Google Apps Script sample client for the Doxey API. Just create a new Apps Script file and paste the source code. Then start the testMerge function. It'll create a sample invoice in your Google Drive root folder.
